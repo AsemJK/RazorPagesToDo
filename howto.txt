@@ -1,0 +1,55 @@
+Step 1:
+Create the project in Visual Studio or the dotnet CLI
+
+Step 2:
+Start a node project
+
+npm init -y
+Step 3:
+Add Tailwindscss
+
+npm install -D tailwindcss
+Step 4:
+Add script to package.json for the css output location
+
+"scripts": {
+    "css:build": "npx tailwindcss -i ./wwwroot/css/site.css -o ./wwwroot/css/styles.css --minify"
+  }
+Step 5:
+Init the tailwind config file
+
+npx tailwindcss init
+Step 6:
+Add modules to tailwind.config.json, this is for tailwinds to style razor pages:
+
+module.exports = {
+    content: [
+       './Pages/**/*.cshtml',
+       './Views/**/*.cshtml'
+],
+    theme: {
+        extend: {},
+    },
+    plugins: [],
+}
+Step 7:
+Add input css to site.css in wwwroot/css
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+Step 8:
+Add itemgroups in in the project under the .csproj file, this is for building the css before deploying:
+
+<ItemGroup>
+  <UpToDateCheckBuilt Include="wwwroot/css/site.css" Set="Css" />
+  <UpToDateCheckBuilt Include="tailwind.config.js" Set="Css" />
+</ItemGroup>
+
+<Target Name="Tailwind" BeforeTargets="Build">
+  <Exec Command="npm run css:build"/>
+</Target>
+Step 9:
+Include the path to the CSS file in the _Layout.cshtml file (Or the other views you need to style with tailwinds)
+
+<link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />

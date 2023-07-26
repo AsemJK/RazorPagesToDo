@@ -1,0 +1,25 @@
+﻿@page "{id:int}"
+@model RazorPagesToDo.Pages.Tickets.DetailsModel
+@{
+}
+
+<div class="container">
+    <div class="row">
+        <div class="form-group">
+            <label>Ticket No</label>
+            <h4>@Model.TicketId</h4>
+
+            <label>Ticket Body</label>
+            <h3>@Model.TicketData.Title</h3>
+        </div>
+    </div>
+</div>
+
+<hr />
+<h2>Images</h2>
+
+
+@foreach(var img in Model.TicketFilesList)
+{
+    <img src="/files/@img.FileName" />
+}
