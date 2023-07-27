@@ -20,8 +20,7 @@
         <a asp-page="/Tickets/New" class="btn btn alert-success" value="New">Add New</a>
     </div>
 </div>
-<div class="container">
-
+<div class="container">    
     <div class="row">
         <table class="table table-bordered table-striped">
             <thead>
@@ -29,19 +28,22 @@
                     <th>#</th>
                     <th>Title</th>
                     <th>Status</th>
-                    <th></th>
                 </tr>
             </thead>
             @foreach (var item in Model.TicketsList)
             {
-                <tr>
+                <tr onclick="GoToDetails(@item.Id)" class="cursor-pointer">
                     <td>@item.Id</td>
                     <td>@item.Title</td>
                     <td>@item.LastStatus</td>
-                    <td><a asp-page="/Tickets/Details" asp-route-id="@item.Id">Details</a></td>
                 </tr>
             }
         </table>
     </div>
 </div>
 
+<script>
+    function GoToDetails(id) {
+        window.location = `/Tickets/Details/${id}`;
+    }
+</script>

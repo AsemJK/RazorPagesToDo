@@ -5,21 +5,40 @@
 
 <div class="container">
     <div class="row">
-        <div class="form-group">
-            <label>Ticket No</label>
-            <h4>@Model.TicketId</h4>
+        <a href="/Tickets">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><rect x="0" y="0" width="48" height="48" fill="none" stroke="none" /><path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4" d="M44 40.836c-4.893-5.973-9.238-9.362-13.036-10.168c-3.797-.805-7.412-.927-10.846-.365V41L4 23.545L20.118 7v10.167c6.349.05 11.746 2.328 16.192 6.833c4.445 4.505 7.009 10.117 7.69 16.836Z" clip-rule="evenodd" /></svg>
+        </a>
+    </div>
+    <div class="row">
+        <div class="card">
+            <div class="card-header">
+                <label>Ticket No : <span><b> @Model.TicketId </b></span></label>
+            </div>
+            <div class="card-body">
+                <h3>@Model.TicketData.Title</h3>
+                
+                <div class="row mt-2">
+                    <div class="form-group">
+                        <label>Add Commant</label>
+                        <textarea class="form-control text-grey-darkest" cols="3" rows="3" value=""></textarea>
+                        <bottun class="btn btn-success">Save</bottun>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="card-footer">
+            <h2>Images</h2>
 
-            <label>Ticket Body</label>
-            <h3>@Model.TicketData.Title</h3>
+            <div class="row">
+                @foreach (var img in Model.TicketFilesList)
+                {
+                    <div class="col-md-6">
+                        <a href="/files/@img.FileName" target="_blank"><img src="/files/@img.FileName" width="100%" class="hover:scale-125 transition duration-200 cursor-pointer" /></a>
+                    </div>
+                }
+            </div>
+           
         </div>
     </div>
 </div>
-
-<hr />
-<h2>Images</h2>
-
-
-@foreach(var img in Model.TicketFilesList)
-{
-    <img src="/files/@img.FileName" />
-}

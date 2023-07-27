@@ -1,14 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using RazorPagesToDo.Data;
+using RazorPagesToDo.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession();
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(
      builder.Configuration.GetConnectionString("DefaultConnection")
    ));
-
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
@@ -20,7 +23,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -29,5 +32,6 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
 
 app.Run();
